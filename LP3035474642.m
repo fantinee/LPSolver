@@ -53,6 +53,8 @@ while (simplex == 1)
    t        = T(1:end-1,2:end)*A(:,s);
    [flg,r] = Revisedgetr(n,s,B,T,t);
    if (flg == 1)
+       info.run = 'Failure'; % Failure case
+       info.msg = 'Failure due degeneracy'; 
        disp('LP is degenerate');
        simplex = 0;
        continue;
@@ -75,6 +77,8 @@ while (simplex == 1)
    [T,B1,flg]=RevisedSimplexTableau(B,r,s,t,zmin,T);      
    if (flg == 1)
        disp('LP is degenerate');
+       info.run = 'Failure'; % Failure case
+       info.msg = 'Failure due degeneracy'; 
        simplex = 0;
        continue;
    end
