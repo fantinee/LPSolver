@@ -7,7 +7,12 @@ flg = 0; %% initialize flg.
 
 [m,n] = size(A); %% find dimensions, m rows n columns
 
-B =(1:m)';
+A_phaseI = [A eye(m)]; %% A extended with I(m)
+e_phaseI = ones(1,m); %% e = (1 .. 1)
+c_phaseI = [zeros(1,n) e_phaseI]; %% new obj for phase I 
+x_phaseI = [zeros(n,1); b]; %% x = [0 ... 0 b]'
+B = find(x_phaseI~=0); %% index from phase first Basis
+
 %T = A(:,B)\[b eye(m)];
 %y = T(:,2:end)'*c(B);
 %T = [T;[c'*x,y']];
