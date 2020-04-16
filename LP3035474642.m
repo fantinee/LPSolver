@@ -7,28 +7,19 @@ flg = 0; %% initialize flg.
 
 [m,n] = size(A); %% find dimensions, m rows n columns
 
+%
+% STARTING SIMPLEX METHOD:
+%% STARTING PHASE I SIMPLEX METHOD
+% Computes basic feasible solution
+
 A_phaseI = [A eye(m)]; %% A extended with I(m)
 e_phaseI = ones(1,m); %% e = (1 .. 1)
 c_phaseI = [zeros(1,n) e_phaseI]; %% new obj for phase I 
 x_phaseI = [zeros(n,1); b]; %% x = [0 ... 0 b]'
-B = find(x_phaseI~=0); %% index from phase first Basis
-
-%T = A(:,B)\[b eye(m)];
-%y = T(:,2:end)'*c(B);
-%T = [T;[c'*x,y']];
-
-%
-% STARTING SIMPLEX METHOD:
-% Computes basic feasible solution
-
-%% STARTING PHASE I SIMPLEX METHOD
-
+B_phaseI = find(x_phaseI~=0); %% index from phase first Basis
 
 %% STARTING PHASE II SIMPLEX METHOD
-%format short g;
-%disp(f);
-%disp('Initial Basis is');
-%disp(B');
+
 obj = c'*x;
 disp(['Initial Objective = ', num2str(obj)]);
 %disp('Displaying Initial solution x, c-A^T*y and their componentwise product');

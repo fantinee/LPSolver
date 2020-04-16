@@ -12,13 +12,16 @@ n = input('How many unknowns: ');
 %
 % setup LP
 %
-B =(1:m)';
+
+B =(1:m)'
+disp(B);
 A =rand(m,n);
 x =zeros(n,1);
 x(B)=rand(m,1);
 b =A*x;
 c =randn(n,1);
 T = A(:,B)\[b eye(m)]
+disp(T);
 y = T(:,2:end)'*c(B);
 T = [T;[c'*x,y']];
 
