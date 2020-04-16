@@ -1,5 +1,6 @@
-function [flg, x, y, newB, t, s, r, obj] = Phase2(A,b,c,x0,B)
+function [flg, x, y, B, t, s, r, obj] = Phase2(A,b,c,x0,B0)
 	[m,n] = size(A); 
+	B = B0;
 	% Creating tableau
 	T = A(:,B)\[b eye(m)];
 	y = T(:,2:end)'*c(B);
@@ -54,7 +55,7 @@ function [flg, x, y, newB, t, s, r, obj] = Phase2(A,b,c,x0,B)
 			simplex = 0;
 			continue;
 		end
-		newB   = B1;
+		B   = B1;
 		obj    = obj1;
 		pause(1);
 	end
