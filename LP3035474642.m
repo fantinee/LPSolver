@@ -2,22 +2,26 @@ function [data, info] = LP3035474642(A, b,c)
 %
 % setup LP
 %
+
+flg = 0; %% initialize flg. 
+
+[m,n] = size(A); %% find dimensions, m rows n columns
+
 B =(1:m)';
-% A =rand(m,n);
-x = zeros(n,1);
-x(B)= rand(m,1);
-% b =A*x;
-% c =randn(n,1);
-T = A(:,B)\[b eye(m)];
-y = T(:,2:end)'*c(B);
-T = [T;[c'*x,y']];
+%T = A(:,B)\[b eye(m)];
+%y = T(:,2:end)'*c(B);
+%T = [T;[c'*x,y']];
 
 %
-% Starting Simplex Method
-%
-f = ['Starting Phase II Simplex Iteration... '];
-format short g;
-disp(f);
+% STARTING SIMPLEX METHOD:
+% Computes basic feasible solution
+
+%% STARTING PHASE I SIMPLEX METHOD
+
+
+%% STARTING PHASE II SIMPLEX METHOD
+%format short g;
+%disp(f);
 %disp('Initial Basis is');
 %disp(B');
 obj = c'*x;
@@ -55,7 +59,7 @@ while (simplex == 1)
    if (flg == 1)
        info.run = 'Failure'; % Failure case
        info.msg = 'Failure due degeneracy'; 
-       disp('LP is degenerate');
+       %disp('LP is degenerate');
        simplex = 0;
        continue;
    end
@@ -76,7 +80,7 @@ while (simplex == 1)
 %
    [T,B1,flg]=RevisedSimplexTableau(B,r,s,t,zmin,T);      
    if (flg == 1)
-       disp('LP is degenerate');
+       %disp('LP is degenerate');
        info.run = 'Failure'; % Failure case
        info.msg = 'Failure due degeneracy'; 
        simplex = 0;

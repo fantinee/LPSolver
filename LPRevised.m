@@ -18,13 +18,10 @@ x =zeros(n,1);
 x(B)=rand(m,1);
 b =A*x;
 c =randn(n,1);
-T = A(:,B)\[b eye(m)];
+T = A(:,B)\[b eye(m)]
 y = T(:,2:end)'*c(B);
 T = [T;[c'*x,y']];
 
-disp(A)
-disp(b)
-disp(c)
 %
 % Starting Simplex Method
 %
