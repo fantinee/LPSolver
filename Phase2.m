@@ -1,4 +1,4 @@
-function [flg, x, y, B, t, s, r, obj] = Phase2(A,b,c,x0,B0)
+function [flg, x, y, B, t, s, r, obj, ITER] = Phase2(A,b,c,x0,B0)
 	[m,n] = size(A); 
 	B = B0;
 	% Creating tableau

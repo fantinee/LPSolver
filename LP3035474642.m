@@ -7,6 +7,13 @@ flg = 0; %% initialize flg.
 
 [m,n] = size(A); %% find dimensions, m rows n columns
 
+if(m>n)
+  data = 0;
+  info.run = "Failure";
+  info.msg = "m > n inconsistent dimensions";
+  return
+end
+
 %
 % STARTING SIMPLEX METHOD:
 % STARTING PHASE I SIMPLEX METHOD
@@ -20,7 +27,7 @@ B_phaseI = find(x_phaseI~=0); %% index from phase first Basis
 
 % getting feasible solution 
 
-[flg, x0, y0, B0, t0, s0, r0, obj0] = Phase2(A_phaseI,b,c_phaseI,x_phaseI,B_phaseI); %% Solution phase I
+[flg, x0, y0, B0, t0, s0, r0, obj0, info.PhaseI.loop] = Phase2(A_phaseI,b,c_phaseI,x_phaseI,B_phaseI); %% Solution phase I
 
 if (flg==1)
   info.run = "Failure";
@@ -37,14 +44,20 @@ end
 
 %if (obj0 == 0) we move on to Phase II
 % STARTING PHASE II SIMPLEX METHOD
+if (obj0 == 0)
+  x_phaseII = x0(1:n); %% New feasible solution for phase II
+  info.case = 1;
+  [flg, data.PhaseII.x, data.PhaseII.y, B, t, s, r, data.PhaseII.Primalobj, info.PhaseII.loop] = Phase2(A,b,c,x_phaseII,B0); %% Solution phase II
+  data.PhaseII.z = c - (A')*data.PhaseII.y;
 
-x_phaseII = x0(1:n);
+  data.PhaseII.Dualobj = b'*(data.PhaseII.y); %% Dual Objective
+  if (abs(data.PhaseII.Dualobj - data.PhaseII.Primalobj)< 1e-7) %% Checks that Primal and Dual are equal
+    info.run = "Success";
+  else
+    info.run = "Failure";           
+    info.msg = "Dual objective != Primal Objective";
+  end
+end
 
-info.case = 1;
-[flg, x, y, B, t, s, r, obj] = Phase2(A,b,c,x_phaseII,B0); %% Solution phase II
-data.PhaseII.PrimalObj = obj;
-data.PhaseII.x = x;
-data.PhaseII.y = y;
-data.PhaseII.z =c - (A')*y;
-
+clear A b c
 end
