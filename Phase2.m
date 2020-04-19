@@ -1,4 +1,8 @@
 function [flg, x, y, B, t, s, r, obj, ITER] = Phase2(A,b,c,x0,B0)
+	flg = 0;
+	t = 0; % initialize variables to avoid crashing
+	s = 0;
+	r = 0;
 	[m,n] = size(A); 
 	B = B0;
 	% Creating tableau
@@ -37,9 +41,9 @@ function [flg, x, y, B, t, s, r, obj, ITER] = Phase2(A,b,c,x0,B0)
 			continue;
 		end
 		if (r < 1)
-			info.run = 'Failure'; % Failure case
-			info.msg = 'The problem has no lower bound'; 
+			% this Failure is due an unbounded value
 			simplex = 0;
+			flg = 2;
 			continue;
 		end
 		x   = zeros(n,1);
