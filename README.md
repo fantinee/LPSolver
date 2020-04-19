@@ -1,5 +1,5 @@
 # LPSolver
+Solves canonical program in the format:
 
-Tasks to complete or issues:
-
-- [ ] Phase I not working for b<0: Multiply by -1 the constraints that have a b<0
+<img src="https://render.githubusercontent.com/render/math?math=min:c^Tx">
+<img src="https://render.githubusercontent.com/render/math?math=Ax=b">
